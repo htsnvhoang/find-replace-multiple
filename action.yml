@@ -1,0 +1,22 @@
+name: 'find-replace-multiple'
+description: 'Find and replace multiple string'
+inputs:
+  include:
+    description: 'Include path file need find and replace'
+    required: true
+  finds:
+    description: 'List of string need replace, separator default is `,`'
+    required: true
+  replaces:
+    description: 'List of value will replace, separator default is `,` \n Same order with finds input'
+    required: true
+  separator:
+    description: "separator default is `,`"
+    required: false
+    default: ","
+outputs:
+  result:
+    description: 'Result'
+runs:
+  using: 'node16'
+  main: 'dist/index.js'
