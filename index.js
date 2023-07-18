@@ -21,6 +21,7 @@ async function main() {
         const finds = getListString(core.getInput('finds'));
         const replaces = getListString(core.getInput('replaces'));
 
+        console.log("Replace list string ", finds);
         if (!finds || !replaces) {
             core.setFailed("Invalid input");
             return;
@@ -38,7 +39,6 @@ async function main() {
 
         finds.forEach((str, i) => {
             newContent = newContent.replace(str, replaces[i]);
-            console.log("new content ", newContent)
         })
 
         fs.writeFileSync(filePathInclude, newContent);
