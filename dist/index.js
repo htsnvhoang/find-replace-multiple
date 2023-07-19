@@ -5302,10 +5302,18 @@ function getListString(str) {
     }
     return ''
 }
+function parseJSON(str) {
+    try {
+        return JSON.parse(str);
+    } catch (error) {
+        return str
+    }
+}
 async function main() {
     try {
         const finds = getListString(core.getInput('finds'));
         const replaces = getListString(core.getInput('replaces'));
+        const transform = core.getInput('transform') || "string";
 
         console.log("Replace list string --> ", finds);
         if (!finds || !replaces) {
@@ -5324,11 +5332,17 @@ async function main() {
         let newContent = fileContent;
 
         finds.forEach((str, i) => {
-            if (str) newContent = newContent.replace(str, replaces[i]);
+            if (str) {
+                let _val = replaces[i];
+                if (transform == 'string') {
+                    _val = parseJSON();
+                    if (typeof _val == 'object') _val = JSON.stringify(_val)
+                }
+                newContent = newContent.replace(str, _val);
+            }
         })
 
         fs.writeFileSync(filePathInclude, newContent);
-        console.log("New content ", newContent);
         console.log("Find and replace success !!!")
     } catch (error) {
         core.setFailed(error.message);
