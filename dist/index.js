@@ -5298,14 +5298,22 @@ async function getFilePath(fileInput) {
 function getListString(str) {
     const separator = core.getInput('separator') || ",";
     if (typeof str == 'string') {
-        return str.split(separator).map(_s => _s.trim()).filter(Boolean);
+        return str.split(separator).filter(Boolean).map(_s => _s.trim());
     }
     return ''
+}
+function transformString(str) {
+    const _str = str.trim();
+    if (_str[0] == '{' || _str[1] == '{') {
+        return _str.replace(/\n/g, "\\n")
+    }
+    return str
 }
 async function main() {
     try {
         const finds = getListString(core.getInput('finds'));
         const replaces = getListString(core.getInput('replaces'));
+        const transform = core.getInput('transform') || "string";
 
         console.log("Replace list string --> ", finds);
         if (!finds || !replaces) {
@@ -5324,7 +5332,13 @@ async function main() {
         let newContent = fileContent;
 
         finds.forEach((str, i) => {
-            if (str) newContent = newContent.replace(str, replaces[i]);
+            if (str) {
+                let _val = replaces[i];
+                if (transform == 'string') {
+                    _val = transformString(_val);
+                }
+                newContent = newContent.replace(str, _val);
+            }
         })
 
         fs.writeFileSync(filePathInclude, newContent);
