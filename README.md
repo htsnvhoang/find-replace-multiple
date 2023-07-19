@@ -2,6 +2,8 @@
 Find replace multiple string in github action
 
 ## Example
+- Input `separator` default is ","
+
     ```
       - name: Replace secrets value
         uses: htsnvhoang/find-replace-multiple@master
