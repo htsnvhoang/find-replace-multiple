@@ -5302,10 +5302,11 @@ function getListString(str) {
     }
     return ''
 }
-function transformString(str) {
+function transformString(str, key) {
     const _str = str.trim();
-    if (_str[0] == '{' || _str[1] == '{') {
-        return _str.replace(/\n/g, "\\n")
+    if (_str[0] == "'" || _str[0] == '"') {
+        console.log("Transform string key --> ", key);
+        return _str.substring(1, _str.length - 1)
     }
     return str
 }
@@ -5313,7 +5314,6 @@ async function main() {
     try {
         const finds = getListString(core.getInput('finds'));
         const replaces = getListString(core.getInput('replaces'));
-        const transform = core.getInput('transform') || "string";
 
         console.log("Replace list string --> ", finds);
         if (!finds || !replaces) {
@@ -5333,10 +5333,7 @@ async function main() {
 
         finds.forEach((str, i) => {
             if (str) {
-                let _val = replaces[i];
-                if (transform == 'string') {
-                    _val = transformString(_val);
-                }
+                let _val = transformString(replaces[i], str);
                 newContent = newContent.replace(str, _val);
             }
         })

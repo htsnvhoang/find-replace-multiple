@@ -14,10 +14,6 @@ inputs:
     description: "separator default is `,`"
     required: false
     default: ","
-  transform:
-    description: "Transform replace string, default is string"
-    required: false
-    default: "string"
 outputs:
   result:
     description: 'Result'
