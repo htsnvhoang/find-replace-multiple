@@ -5298,7 +5298,7 @@ async function getFilePath(fileInput) {
 function getListString(str) {
     const separator = core.getInput('separator') || ",";
     if (typeof str == 'string') {
-        return str.split(separator).map(_s => _s.trim());
+        return str.split(separator).map(_s => _s.trim()).filter(Boolean);
     }
     return ''
 }
@@ -5307,7 +5307,7 @@ async function main() {
         const finds = getListString(core.getInput('finds'));
         const replaces = getListString(core.getInput('replaces'));
 
-        console.log("Replace list string ", finds);
+        console.log("Replace list string --> ", finds);
         if (!finds || !replaces) {
             core.setFailed("Invalid input");
             return;
@@ -5324,7 +5324,7 @@ async function main() {
         let newContent = fileContent;
 
         finds.forEach((str, i) => {
-            newContent = newContent.replace(str, replaces[i]);
+            if (str) newContent = newContent.replace(str, replaces[i]);
         })
 
         fs.writeFileSync(filePathInclude, newContent);
