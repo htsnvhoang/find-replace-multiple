@@ -28,6 +28,7 @@ async function main() {
     try {
         const finds = getListString(core.getInput('finds'));
         const replaces = getListString(core.getInput('replaces'));
+        const isTransform = core.getBooleanInput('isTransform');
 
         console.log("Replace list string --> ", finds);
         if (!finds || !replaces) {
@@ -47,13 +48,15 @@ async function main() {
 
         finds.forEach((str, i) => {
             if (str) {
-                let _val = transformString(replaces[i], str);
+                let _val = replaces[i];
+                if (isTransform) _val = transformString(_val, str);
                 newContent = newContent.replace(str, _val);
             }
         })
 
         fs.writeFileSync(filePathInclude, newContent);
-        console.log("Find and replace success !!!")
+        console.log("Find and replace success !!!");
+        core.info("Find and replace success !!!")
     } catch (error) {
         core.setFailed(error.message);
     }
