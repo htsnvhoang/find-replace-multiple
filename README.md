@@ -4,7 +4,7 @@ Find replace multiple string in github action
 ## Example
     ```
       - name: Replace secrets value
-        uses: htsnvhoang/find-replace-multiple@v1
+        uses: htsnvhoang/find-replace-multiple@master
         with:
           finds: |
             secrets._a,
