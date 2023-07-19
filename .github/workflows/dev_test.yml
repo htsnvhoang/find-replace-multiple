@@ -1,0 +1,20 @@
+name: Dev test
+
+on:
+  push:
+    branches:
+      - "dev"
+
+jobs:
+  test:
+    name: test action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        with:
+          finds: 'hts;'
+          replaces: |
+            ${{secrets.GOOGLE_CREDENTIAL}};
+          include: "test.yml"
+          separator: ";"

@@ -1,0 +1,6 @@
+Resources:
+  StripeSigningSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Name: ${self:provider.stage}_stripe_webhook_connect
+      SecretString: hts

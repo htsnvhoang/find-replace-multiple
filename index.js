@@ -42,6 +42,7 @@ async function main() {
         })
 
         fs.writeFileSync(filePathInclude, newContent);
+        console.log("New content ", newContent);
         console.log("Find and replace success !!!")
     } catch (error) {
         core.setFailed(error.message);
