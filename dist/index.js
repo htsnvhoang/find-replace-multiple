@@ -5336,7 +5336,7 @@ async function main() {
             if (str && _val) {
                 if (isTransform) _val = transformString(_val, str);
                 newContent = newContent.replace(str, _val);
-                core.info("Replace key --> ", str)
+                console.log("Replace key --> ", str)
             }
         })
 
