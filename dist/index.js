@@ -5316,7 +5316,6 @@ async function main() {
         const replaces = getListString(core.getInput('replaces'));
         const isTransform = core.getBooleanInput('isTransform');
 
-        console.log("Replace list string --> ", finds);
         if (!finds || !replaces) {
             core.setFailed("Invalid input");
             return;
@@ -5333,15 +5332,15 @@ async function main() {
         let newContent = fileContent;
 
         finds.forEach((str, i) => {
-            if (str) {
-                let _val = replaces[i];
+            let _val = replaces[i];
+            if (str && _val) {
                 if (isTransform) _val = transformString(_val, str);
                 newContent = newContent.replace(str, _val);
+                core.info("Replace key --> ", str)
             }
         })
 
         fs.writeFileSync(filePathInclude, newContent);
-        console.log("Find and replace success !!!");
         core.info("Find and replace success !!!")
     } catch (error) {
         core.setFailed(error.message);
