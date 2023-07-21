@@ -2,18 +2,22 @@
 Find replace multiple string in github action
 
 ## Example
-- Input "separator" is no required and have default value is ","
+- Input "params" format is object with 2 keys: `finds`, `replaces`
   
     ```
       - name: Replace secrets value
-        uses: htsnvhoang/find-replace-multiple@master
+        uses: htsnvhoang/find-replace-multiple@v2
         with:
-          finds: |
-            secrets._a,
-            secrets._b_
-          replaces: |
-            ${{ secrets.A }},
-            ${{ secrets.B }}
-          include: "config.yml"
-          separator: ","
+          filePattern: "*.yml"
+          params: |
+            {
+              "finds": [
+                "secrets._a", 
+                "secrets._b_"
+              ],
+              "replaces": [
+                "val_1", 
+                "${{secrets.TEST}}"
+              ]
+            }
     ```

@@ -1,8 +1,8 @@
 name: 'find-replace-multiple'
 description: 'Find and replace multiple string'
 inputs:
-  include:
-    description: 'Include path file need find and replace'
+  filePattern:
+    description: 'Include path file need find and replace use pattern'
     required: true
   params:
     description: 'object data param'
