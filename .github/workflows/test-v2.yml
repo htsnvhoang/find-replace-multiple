@@ -16,6 +16,12 @@ jobs:
           include: "README.md"
           params: |
             {
-              "finds": ["secrets._a", "secrets._b_"],
-              "replaces": ["val_1", ${{secrets.HTS_TEST}}]
+              "finds": [
+                "secrets._a", 
+                "secrets._b_"
+              ],
+              "replaces": [
+                "val_1", 
+                "${{secrets.HTS_TEST}}"
+              ]
             }
