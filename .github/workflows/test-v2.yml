@@ -1,0 +1,19 @@
+name: Test action v2
+
+on:
+  push:
+    branches:
+      - "v2.0.0"
+jobs:
+  TestV2:
+    name: Test v2 action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: .
+        name: Test input
+        with:
+          params: |
+            {
+              "finds": ["aaa", "bbbb"],
+              "replaces": ["aaa_1", "bbb_1"]
+            }

@@ -4,20 +4,9 @@ inputs:
   include:
     description: 'Include path file need find and replace'
     required: true
-  finds:
-    description: 'List of string need replace, separator default is `,`'
+  params:
+    description: 'object data param'
     required: true
-  replaces:
-    description: 'List of value will replace, separator default is `,` \n Same order with finds input'
-    required: true
-  separator:
-    description: "separator default is `,`"
-    required: false
-    default: ","
-  isTransform:
-    description: "wheter transform string"
-    required: false
-    default: false
 outputs:
   result:
     description: 'Result'

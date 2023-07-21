@@ -5312,36 +5312,40 @@ function transformString(str, key) {
 }
 async function main() {
     try {
-        const finds = getListString(core.getInput('finds'));
-        const replaces = getListString(core.getInput('replaces'));
-        const isTransform = core.getBooleanInput('isTransform');
+        const paramInput = core.getInput('params', { required: true });
+        const data = JSON.parse(paramInput);
+        console.log("typeof data ", typeof data);
+        console.log("data ", data);
+        // const finds = getListString(core.getInput('finds'));
+        // const replaces = getListString(core.getInput('replaces'));
+        // const isTransform = core.getBooleanInput('isTransform');
 
-        if (!finds || !replaces) {
-            core.setFailed("Invalid input");
-            return;
-        }
+        // if (!finds || !replaces) {
+        //     core.setFailed("Invalid input");
+        //     return;
+        // }
 
-        const filePathInclude = await getFilePath(core.getInput('include'));
-        if (!filePathInclude) {
-            core.setFailed("Invalid file path include");
-            return;
-        }
+        // const filePathInclude = await getFilePath(core.getInput('include'));
+        // if (!filePathInclude) {
+        //     core.setFailed("Invalid file path include");
+        //     return;
+        // }
 
-        const fileBuffer = fs.readFileSync(filePathInclude);
-        const fileContent = fileBuffer.toString();
-        let newContent = fileContent;
+        // const fileBuffer = fs.readFileSync(filePathInclude);
+        // const fileContent = fileBuffer.toString();
+        // let newContent = fileContent;
 
-        finds.forEach((str, i) => {
-            let _val = replaces[i];
-            if (str && _val) {
-                if (isTransform) _val = transformString(_val, str);
-                newContent = newContent.replace(str, _val);
-                console.log("Replace key --> ", str)
-            }
-        })
+        // finds.forEach((str, i) => {
+        //     let _val = replaces[i];
+        //     if (str && _val) {
+        //         if (isTransform) _val = transformString(_val, str);
+        //         newContent = newContent.replace(str, _val);
+        //         console.log("Replace key --> ", str)
+        //     }
+        // })
 
-        fs.writeFileSync(filePathInclude, newContent);
-        core.info("Find and replace success !!!")
+        // fs.writeFileSync(filePathInclude, newContent);
+        // core.info("Find and replace success !!!")
     } catch (error) {
         core.setFailed(error.message);
     }
