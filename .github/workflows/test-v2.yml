@@ -21,7 +21,7 @@ jobs:
                 "secrets._b_"
               ],
               "replaces": [
-                "val_1", 
+                ${{secrets.GOOGLE_CREDENTIAL}}, 
                 "${{secrets.HTS_TEST}}"
               ]
             }
