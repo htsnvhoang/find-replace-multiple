@@ -14,8 +14,7 @@ async function findReplace(filePath, finds, replaces) {
     const fileBuffer = fs.readFileSync(filePath);
     const fileContent = fileBuffer.toString();
     let newContent = fileContent;
-    console.log(__dirname);
-    console.log(__filename);
+    
     core.startGroup(`Start find and replace in file ${filePath}`);
     finds.forEach((str, i) => {
         let _val = replaces[i];
