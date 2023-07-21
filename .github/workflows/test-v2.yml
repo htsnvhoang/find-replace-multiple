@@ -9,7 +9,7 @@ jobs:
     name: Test v2 action
     runs-on: ubuntu-latest
     steps:
-      - uses: .
+      - uses: ./
         name: Test input
         with:
           params: |
