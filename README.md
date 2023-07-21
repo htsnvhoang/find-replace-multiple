@@ -16,8 +16,8 @@ Find replace multiple string in github action
                 "secrets._b_"
               ],
               "replaces": [
-                "val_1", 
-                "${{secrets.TEST}}"
+                ${{secrets.GOOGLE_CREDENTIAL}}, 
+                "${{secrets.HTS_TEST}}"
               ]
             }
     ```
