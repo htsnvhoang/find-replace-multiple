@@ -13,7 +13,7 @@ jobs:
       - uses: ./
         name: Test input
         with:
-          include: "README.md"
+          filePattern: "README.md"
           params: |
             {
               "finds": [
