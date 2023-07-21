@@ -13,8 +13,9 @@ jobs:
       - uses: ./
         name: Test input
         with:
+          include: "README.md"
           params: |
             {
-              "finds": ["aaa", "bbbb"],
-              "replaces": ["aaa_1", "bbb_1"]
+              "finds": ["secrets._a", "secrets._b_"],
+              "replaces": ["val_1", ${{secrets.HTS_TEST}}]
             }
