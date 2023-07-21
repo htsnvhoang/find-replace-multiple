@@ -23,7 +23,7 @@ async function findReplace(filePath, finds, replaces) {
         }
     })
 
-    fs.writeFileSync(filesPathInclude, newContent);
+    fs.writeFileSync(filePath, newContent);
     core.info("Find and replace success !!!");
     core.endGroup();
 }
