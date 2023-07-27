@@ -2,22 +2,17 @@
 Find replace multiple string in github action
 
 ## Example
-- Input "params" format is object with 2 keys: `finds`, `replaces`
   
     ```
       - name: Replace secrets value
-        uses: htsnvhoang/find-replace-multiple@v2
+        uses: htsnvhoang/find-replace-multiple@v3
         with:
-          filePattern: "*.yml"
-          params: |
+          file: "config.yml"
+          replaces: |
             {
-              "finds": [
-                "secrets._a", 
-                "secrets._b_"
-              ],
-              "replaces": [
-                ${{secrets.GOOGLE_CREDENTIAL}}, 
-                "${{secrets.HTS_TEST}}"
-              ]
+              "parm2": "prod",
+              "appsync_version": 145,
+              "SECRET_STRIPE_WEBHOOK_CONNECT": "${{secrets.HTS_TEST}}",
+              "GOOGLE_CREDENTIAL": ${{secrets.GOOGLE_CREDENTIAL}}
             }
     ```
