@@ -6,7 +6,7 @@ on:
       - "v3.0.0"
 jobs:
   TestV2:
-    name: Test v2=3 action
+    name: Test v3 action
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -18,5 +18,6 @@ jobs:
             {
               "parm2": "stg",
               "appsync_version": 145,
-              "GOOGLE_CREDENTIAL": ${{secrets.HTS_TEST}}
+              "SECRET_STRIPE_WEBHOOK_CONNECT": "${{secrets.HTS_TEST}}",
+              "GOOGLE_CREDENTIAL": ${{secrets.GOOGLE_CREDENTIAL}}
             }
