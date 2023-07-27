@@ -26,9 +26,12 @@ async function findAndReplace(filePath, data) {
         objectData[key] ? console.log("Replace key --> ", key) :console.log("Add new key --> ", key);
         objectData[key] = data[key]
     })
-    console.log("New config ", objectData);
     fs.writeFileSync(filePath, yaml.dump(objectData));
     console.log("Replace object success!!")
+}
+async function testWirteFile(file) {
+    const content = fs.readFileSync(file, 'utf8');
+    console.log("New content ", content)
 }
 async function main() {
     try {
@@ -46,6 +49,7 @@ async function main() {
         }
 
         await findAndReplace(filePathInclude, data);
+        await testWirteFile(filePathInclude)
     } catch (error) {
         core.setFailed(error.message);
     }

@@ -16,7 +16,7 @@ jobs:
           file: "config.yml"
           replaces: |
             {
-              "parm2": "stg",
+              "parm2": "prod",
               "appsync_version": 145,
               "SECRET_STRIPE_WEBHOOK_CONNECT": "${{secrets.HTS_TEST}}",
               "GOOGLE_CREDENTIAL": ${{secrets.GOOGLE_CREDENTIAL}}
