@@ -1,10 +1,10 @@
 name: 'find-replace-multiple'
 description: 'Find and replace multiple string'
 inputs:
-  filePattern:
-    description: 'Include path file need find and replace use pattern'
+  file:
+    description: 'Include path file need find and replace use pattern, support file yaml, json'
     required: true
-  params:
+  replaces:
     description: 'object data param'
     required: true
 outputs:

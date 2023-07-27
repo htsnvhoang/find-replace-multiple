@@ -1,0 +1,22 @@
+name: Test action v2
+
+on:
+  push:
+    branches:
+      - "v3.0.0"
+jobs:
+  TestV2:
+    name: Test v2=3 action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./
+        name: Test input
+        with:
+          file: "config.yml"
+          replaces: |
+            {
+              "parm2": "stg",
+              "appsync_version": 145,
+              "GOOGLE_CREDENTIAL": ${{secrets.HTS_TEST}}
+            }

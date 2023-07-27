@@ -1,55 +1,51 @@
 
 const core = require('@actions/core');
 const glob = require('@actions/glob');
+const yaml = require('js-yaml');
 const fs = require("fs");
 
 async function getFilePath(fileInput) {
     const globber = await glob.create(fileInput);
     const files = await globber.glob();
     if (!files || !files.length) return null;
-    return files
+    return files[0]
 }
 
-async function findReplace(filePath, finds, replaces) {
-    const fileBuffer = fs.readFileSync(filePath);
-    const fileContent = fileBuffer.toString();
-    let newContent = fileContent;
-    
-    core.startGroup(`Start find and replace in file ${filePath}`);
-    finds.forEach((str, i) => {
-        let _val = replaces[i];
-        if (str && _val) {
-            newContent = newContent.replace(str, _val);
-            console.log("Replace --> ", str)
-        }
+async function findAndReplace(filePath, data) {
+    let objectData = {};
+    if (filePath.includes('.yml') || filePath.includes('.yaml')) {
+        objectData = yaml.load(fs.readFileSync(filePath, 'utf8'));
+    } else if (filePath.includes('.json')) {
+        objectData = require(filePath);
+    }
+    if (typeof objectData != 'object') {
+        core.setFailed("Invalid input config object");
+        return;
+    }
+    Object.keys(data).forEach(key => {
+        objectData[key] ? console.log("Replace key --> ", key) :console.log("Add new key --> ", key);
+        objectData[key] = data[key]
     })
-
-    fs.writeFileSync(filePath, newContent);
-    core.endGroup();
-
-    core.info("Find and replace success !!!");
+    console.log("New config ", objectData);
+    fs.writeFileSync(filePath, yaml.dump(objectData));
+    console.log("Replace object success!!")
 }
 async function main() {
     try {
-        const paramInput = core.getInput('params', { required: true });
+        const paramInput = core.getInput('replaces', { required: true });
         const data = JSON.parse(paramInput);
-        if (typeof data != 'object' || !data['finds'] || !data['replaces']) {
+        if (typeof data != 'object') {
             core.setFailed("Invalid input");
             return;
         }
-        const { finds, replaces } = data;
-        if (!finds.length || !replaces.length) {
-            core.setFailed("Empty input finds and replacse");
-            return;
-        }
 
-        const filesPathInclude = await getFilePath(core.getInput('filePattern'));
-        if (!filesPathInclude || !filesPathInclude.length) {
+        const filePathInclude = await getFilePath(core.getInput('file', { required: true }));
+        if (!filePathInclude) {
             core.setFailed("Invalid file path include");
             return;
         }
 
-        await Promise.all(filesPathInclude.map(async filePath => await findReplace(filePath, finds, replaces)))
+        await findAndReplace(filePathInclude, data);
     } catch (error) {
         core.setFailed(error.message);
     }

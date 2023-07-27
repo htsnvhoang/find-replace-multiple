@@ -1,0 +1,10 @@
+ENV: 'dev'
+parm2: 'dev'
+appsync_version: '124'
+required_app_version: 1.7.5
+
+ORDER_EMAIL: aaa
+
+#### STRIPE Setting ####
+SECRET_STRIPE_WEBHOOK_CONNECT: secrets.STRIPE_WEBHOOK_CONNECT
+GOOGLE_CREDENTIAL: secrets._GOOGLE_CREDENTIAL
